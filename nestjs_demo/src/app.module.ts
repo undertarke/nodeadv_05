@@ -4,11 +4,13 @@ import { AppService } from './app.service';
 import { ProductModule } from './product/product.module';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './strategy/jwt.strategy';
 
 // Module gốc
 @Module({
-  imports: [ProductModule, PrismaModule],
+  imports: [ProductModule, PrismaModule, JwtModule.register({})],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, JwtStrategy],
 })
-export class AppModule {}
+export class AppModule { }
