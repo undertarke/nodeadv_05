@@ -166,7 +166,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/MAC/Documents/source/nodeadv05/nestjs_demo/generated-mysql/prisma",
+      "value": "/Users/MAC/Documents/source/nodeadv_05/nestjs_demo/generated-mysql/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -180,14 +180,14 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/MAC/Documents/source/nodeadv05/nestjs_demo/src/prisma/schema-mysql.prisma",
+    "sourceFilePath": "/Users/MAC/Documents/source/nodeadv_05/nestjs_demo/prisma/schema-mysql.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
-  "relativePath": "../../src/prisma",
+  "relativePath": "../../prisma",
   "clientVersion": "6.16.1",
   "engineVersion": "1c57fdcd7e44b29b9313256c76699e91c3ac3c43",
   "datasourceNames": [
@@ -203,8 +203,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../../generated-mysql/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL_MYSQL\")\n}\n\nmodel products {\n  id           Int     @id @default(autoincrement())\n  product_name String? @db.VarChar(100)\n  price        Int?\n  manufacturer String? @db.VarChar(100)\n  attributes   Json?\n}\n\nmodel sanpham {\n  id            BigInt   @id\n  sku           String   @db.VarChar(32)\n  ten           String   @db.VarChar(255)\n  gia           Decimal  @db.Decimal(12, 0)\n  so_luong      Int\n  danh_muc      String?  @db.VarChar(64)\n  mo_ta         String?  @db.Text\n  ngay_tao      DateTime @db.DateTime(0)\n  ngay_cap_nhat DateTime @db.DateTime(0)\n\n  @@index([ten], map: \"ftx_ten_ngram\")\n}\n",
-  "inlineSchemaHash": "9050a2c713e982e7dd7665072f3e1915459af94aadffe05636b3771f43faff5d",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated-mysql/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL_MYSQL\")\n}\n\nmodel products {\n  id           Int     @id @default(autoincrement())\n  product_name String? @db.VarChar(100)\n  price        Int?\n  manufacturer String? @db.VarChar(100)\n  attributes   Json?\n}\n\nmodel sanpham {\n  id            BigInt   @id\n  sku           String   @db.VarChar(32)\n  ten           String   @db.VarChar(255)\n  gia           Decimal  @db.Decimal(12, 0)\n  so_luong      Int\n  danh_muc      String?  @db.VarChar(64)\n  mo_ta         String?  @db.Text\n  ngay_tao      DateTime @db.DateTime(0)\n  ngay_cap_nhat DateTime @db.DateTime(0)\n\n  @@index([ten], map: \"ftx_ten_ngram\")\n}\n",
+  "inlineSchemaHash": "522ad9139a2e0894ba196846533b1c6a8534aee598bb6515a54c95a9cd59d735",
   "copyEngine": true
 }
 config.dirname = '/'
