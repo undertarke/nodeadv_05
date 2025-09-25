@@ -57,7 +57,7 @@ export class ProductController {
     return this.productService.create(createProductDto);
   }
 
-  @UseGuards(AuthGuard("jwt"))
+  // @UseGuards(AuthGuard("jwt"))
   @Get()
   findAll() {
 

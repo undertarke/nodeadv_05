@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model customers {
+  customer_id Int      @id @default(autoincrement())
+  cus_name    String?  @db.VarChar(100)
+  email       String?  @db.VarChar(100)
+  phone       String?  @db.VarChar(100)
+  orders      orders[]
+}
+
+model orders {
+  order_id    Int        @id @default(autoincrement())
+  customer_id Int?
+  product_id  Int?
+  order_date  DateTime?  @db.Date
+  quantity    Int?
+  customers   customers? @relation(fields: [customer_id], references: [customer_id], onDelete: NoAction, onUpdate: NoAction)
+  products    products?  @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model products {
+  id           Int      @id @default(autoincrement())
+  product_name String?  @db.VarChar(100)
+  price        Int?
+  manufacturer String?  @db.VarChar(100)
+  attributes   Json?    @db.Json
+  image        String?  @db.VarChar(100)
+  orders       orders[]
+}
