@@ -39,7 +39,6 @@ export class AppController {
     }
     // send mail verify order => nodemailer , google mail
     configMail.sendMail(infoMail, error => error);
-
     
 
     // 2 lưu đặt hàng => create table order
