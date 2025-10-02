@@ -1,5 +1,5 @@
 {
-  "name": "product_service",
+  "name": "notify_service",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -24,10 +24,9 @@
     "@nestjs/core": "^11.0.1",
     "@nestjs/microservices": "^11.1.6",
     "@nestjs/platform-express": "^11.0.1",
-    "@prisma/client": "^6.16.3",
     "amqp-connection-manager": "^5.0.0",
     "amqplib": "^0.10.9",
-    "prisma": "^6.16.3",
+    "nodemailer": "^7.0.6",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
