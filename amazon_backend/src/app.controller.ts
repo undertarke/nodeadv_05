@@ -1,17 +1,46 @@
-import { Body, Controller, Get, HttpException, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, Inject, Param, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { PrismaService } from './prisma/prisma.service';
 import * as nodemailer from 'nodemailer';
+import { Cache } from 'cache-manager';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService,
-    private prismaService: PrismaService
+    private prismaService: PrismaService,
+
+    @Inject(CACHE_MANAGER) private cacheManager: Cache
   ) { }
+
+  @Get("/get-cache")
+  async getCache() {
+    let demo = await this.cacheManager.get("DEMO");
+    console.log(typeof demo);
+    let demo2 = await this.cacheManager.get("DEMO2");
+    return { demo, demo2 };
+  }
+
+  @Get("/save-cache")
+  async saveCache() {
+    await this.cacheManager.set("DEMO", "hello world !");
+    await this.cacheManager.set("DEMO2", "hello world !");
+  }
+
+  @Get("/delete-cache")
+  async deleteCache() {
+    await this.cacheManager.del("DEMO");
+  }
+  @Get("/reset-cache")
+  async resetCache() {
+    await this.cacheManager.reset();
+  }
+
 
   @Get("/get-product")
   getProduct(@Query("name") name) {
-    return this.appService.getProduct(name);
+
+    return this.appService.getProduct();
   }
 
   @Get("/get-product-by-id/:id")
@@ -39,7 +68,7 @@ export class AppController {
     }
     // send mail verify order => nodemailer , google mail
     configMail.sendMail(infoMail, error => error);
-    
+
 
     // 2 lưu đặt hàng => create table order
     // this.prismaService.orders.create({ data: {} });
