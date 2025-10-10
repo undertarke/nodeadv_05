@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
 import { catchError, lastValueFrom, of, retry, timeout } from 'rxjs';
@@ -10,6 +10,13 @@ export class AppController {
     @Inject("NOTIFY_NAME") private notifyService: ClientProxy,
 
   ) { }
+
+  @Get("/get-hello")
+  async getHello() {
+
+    return "Hello world";
+
+  }
 
   @Get("/get-demo")
   async getDemo() {
@@ -42,5 +49,21 @@ export class AppController {
 
     return data;
 
+  }
+
+
+  @Get("/demo-cache/:id")
+  async demoCache(@Param("id") id) {
+    if (id == 0) {
+      this.productService.emit("save_cache", "");
+    }
+    if (id == 1) {
+      return await this.productService.send("get_cache", "");
+
+    }
+    if (id == 2) {
+      this.productService.emit("delete_cache", "");
+
+    }
   }
 }

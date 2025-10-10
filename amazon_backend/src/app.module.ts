@@ -5,11 +5,15 @@ import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { RedisCacheModule } from './redis_cache/redis_cache.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
     PrismaModule,
     RedisCacheModule,
+    ConfigModule.forRoot({
+      isGlobal: true
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,0 +1,18 @@
+version: "3"
+services: # nơi build image và tạo container của ứng dụng
+  amazon_backend:
+    build: . # docker build .
+    # image: undertarke/k8s # pull từ hub docker
+    # environment: khai báo biến môi trường
+    container_name: cons-nest
+    ports:
+      - 8080:8080
+    networks:
+      - node-network
+
+# volumes:
+
+# tạo docker networks
+networks: 
+  node-network: 
+    external: true # cho biết mạng này đã tồn tại rồi
