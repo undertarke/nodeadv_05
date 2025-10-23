@@ -4,14 +4,106 @@ import { PrismaService } from './prisma/prisma.service';
 import * as nodemailer from 'nodemailer';
 import { Cache } from 'cache-manager';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { ElasticsearchService } from '@nestjs/elasticsearch';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService,
     private prismaService: PrismaService,
 
-    @Inject(CACHE_MANAGER) private cacheManager: Cache
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+
+    private elasticService: ElasticsearchService
   ) { }
+
+  @Get("/get-elastic")
+  async getElastic() {
+
+    // GET /demo_index/_search
+
+    let data = await this.elasticService.search({
+      index: "demo_index",
+      query: {
+        range: {
+          "price": {
+            lt: 30
+          }
+        }
+      },
+      sort: [
+        {
+          "price": "asc"
+        }
+      ]
+    })
+
+    return data;
+  }
+
+
+  @Post("/action-elastic")
+  async actionElastic() {
+
+    // GET /demo_index/_search
+
+    // await this.elasticService.delete({
+    //   index: "demo_index",
+    //   id: "191",
+    //   refresh: true
+    // })
+
+    // await this.elasticService.create({
+    //   index: "demo_index",
+    //   id: "191",
+    //   document: {
+    //     "name": "macbook apple m5",
+    //     "category": "Computer",
+    //     "price": 5.3,
+    //     "in_stock": true,
+    //     "quantity": 50,
+    //     "create_at": "2025-10-16"
+    //   },
+    //   refresh: true
+
+    // })
+
+    // await this.elasticService.index({
+    //   index: "demo_index",
+    //   document: {
+    //     "name": "macbook apple m6",
+    //     "category": "Computer",
+    //     "price": 5.3,
+    //     "in_stock": true,
+    //     "quantity": 50,
+    //     "create_at": "2025-10-16"
+    //   },
+    //   refresh: true
+    // })
+
+    await this.elasticService.update({
+      index: "demo_index",
+      id: "191",
+      doc: {
+        "name": "iphone 17 promax",
+        "category": "Computer",
+        "price": 5.3,
+        "in_stock": true,
+        "quantity": 50,
+        "create_at": "2025-10-16"
+      },
+      refresh: true
+    })
+
+
+    let data = await this.elasticService.search({
+      index: "demo_index",
+
+    })
+
+    return data;
+  }
+
+
 
   @Get("/get-cache")
   async getCache() {

@@ -6,6 +6,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { RedisCacheModule } from './redis_cache/redis_cache.module';
 import { ConfigModule } from '@nestjs/config';
+import { ElasticModule } from './elastic/elastic.module';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { ConfigModule } from '@nestjs/config';
     RedisCacheModule,
     ConfigModule.forRoot({
       isGlobal: true
-    })
+    }),
+    ElasticModule
   ],
   controllers: [AppController],
   providers: [AppService],
