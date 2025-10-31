@@ -16,6 +16,15 @@ export class AppController {
   ) { }
 
 
+  @MessagePattern("demo_key")
+  async getDemo(@Payload() data) {
+    await lastValueFrom(this.shippingService.send("demo_key", "đây là param gửi đi"));
+
+    throw new Error("bugg product");
+    console.log("product", data)
+    return `Get list products !!! => ${data}`;
+  }
+
   @MessagePattern("dat_hang")
   async order(@Payload() data) {
     // console.log("goi tới product_serivce để đặt hàng", data);
@@ -40,11 +49,6 @@ export class AppController {
 
 
 
-  @MessagePattern("demo_key")
-  getDemo(@Payload() data) {
-    console.log(data)
-    return `Get list products !!! => ${data}`;
-  }
 
   @EventPattern("save_cache")
   async saveCache() {

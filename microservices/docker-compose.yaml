@@ -29,3 +29,4 @@ services:
 networks:
   node-network:
     external: true
+

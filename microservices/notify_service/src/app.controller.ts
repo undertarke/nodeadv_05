@@ -1,12 +1,21 @@
 import { Controller, Get, HttpException } from '@nestjs/common';
 import { AppService } from './app.service';
 import * as nodemailer from 'nodemailer';
-import { EventPattern, Payload } from '@nestjs/microservices';
+import { EventPattern, MessagePattern, Payload } from '@nestjs/microservices';
 
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) { }
+
+  @MessagePattern("demo_key")
+  getDemo(@Payload() data) {
+
+    throw new Error("bugg notify !");
+    console.log("notify:",data)
+    return `Get notify !!! => ${data}`;
+  }
+
 
   @EventPattern("xac_nhan_don_hang")
   xacNhanDonHang(@Payload() data) {

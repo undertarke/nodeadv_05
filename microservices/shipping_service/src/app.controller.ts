@@ -10,6 +10,15 @@ export class AppController {
     @Inject("NOTIFY_NAME") private notifyService: ClientProxy,
   ) { }
 
+  @MessagePattern("demo_key")
+  getDemo(@Payload() data) {
+
+    throw new Error("bugg shipping");
+    console.log("shipping: ",data)
+    return `get shipping !!! => ${data}`;
+  }
+
+
   @MessagePattern("luu_ship")
   async luuShip(@Payload() data) {
 

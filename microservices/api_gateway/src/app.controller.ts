@@ -21,9 +21,11 @@ export class AppController {
   @Get("/get-demo")
   async getDemo() {
 
-    let data = await lastValueFrom(this.productService.send("demo_key", "đây là param gửi đi"));
+    lastValueFrom(this.productService.emit("demo_key", "đây là param gửi đi"));
 
-    return data;
+    lastValueFrom(this.notifyService.emit("demo_key", "đây là param gửi đi"));
+
+    return "data";
 
   }
 
